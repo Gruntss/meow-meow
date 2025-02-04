@@ -19,7 +19,7 @@ const messages = [
   "How can we be sure if we don't try?",
   "ako nalang sana",
   "It hurts",
-  "Aym gonna cry na...",
+  "Miss ganda, sige na",
 ];
 
 yesButton.addEventListener("click", handleYesClick);
