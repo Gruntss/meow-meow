@@ -41,39 +41,18 @@ noButton.addEventListener("click", function () {
 function handleYesClick() {
   titleElement.innerHTML = "Yayyy! I knew you would say yes!! :3";
   buttonsContainer.classList.add("hidden");
-  changeImage("yes");
+  changeImage("yes"); // Call changeImage with "yes" to update the image
 }
 
+function changeImage(imageIndex) {
+  // Update the image based on index or "yes"
+  if (imageIndex === "yes") {
+    catsImg.src = "path_to_yes_image.jpg"; // Update with actual image for yes response
+  } else {
+    catsImg.src = `path_to_cats_image_${imageIndex}.jpg`; // Update with actual images for no clicks
+  }
+}
 
-function handleNoClick() {
+function updateNoButtonText() {
+  // Dynamically update the text of the No button based on how many times it's clicked
   if (noCount < MAX_IMAGES) {
-    noCount++;
-
-    // Change the question text
-    titleElement.textContent = messages[Math.min(noCount, messages.length - 1)];
-
-    // Update the cat image
-    changeImage(noCount);
-
-    // Resize the buttons
-    resizeButtons();
-  }
-
-  // At the last "No" click, turn both into "Yes"
-  if (noCount === MAX_IMAGES) {
-    noButton.textContent = "Yes";
-    noButton.classList.add("btn--yes");
-    noButton.removeEventListener("click", handleNoClick);
-    noButton.addEventListener("click", handleYesClick);
-  }
-}
-
-function resizeButtons() {
-  // Increase Yes button size
-  const yesFontSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-  yesButton.style.fontSize = `${yesFontSize * 1.4}px`;
-
-  // Decrease No button size (minimum 12px so it doesn’t disappear)
-  const noFontSize = parseFloat(window.getComputedStyle(noButton).fontSize);
-  noButton.style.fontSize = `${Math.max(noFontSize * 0.7, 12)}px`;
-}
