@@ -6,8 +6,7 @@ const yesButton = document.querySelector(".btn--yes");
 const noButton = document.querySelector(".btn--no");
 const catImg = document.querySelector(".cat-img");
 
-const MAX_IMAGES = 9;
-let play = true;
+const MAX_IMAGES = 9; // Total images (cats-0.jpg to cats-8.jpg)
 let noCount = 0;
 
 const messages = [
@@ -26,11 +25,11 @@ yesButton.addEventListener("click", handleYesClick);
 noButton.addEventListener("click", handleNoClick);
 
 function handleYesClick() {
-  titleElement.innerHTML = "❤️ Yay! I knew you would say yes!! :3";
+  titleElement.textContent = "Yayyy!! :3";
   buttonsContainer.classList.add("hidden");
-  changeImage("yes");
+  changeImage("yes"); // Show the final 'yes' image
 
-  // Create and show a response message
+  // Show a cute response message
   const responseMessage = document.createElement("p");
   responseMessage.textContent = "❤️ Yay! I knew you would say yes! ❤️";
   responseMessage.style.color = "red";
@@ -41,36 +40,51 @@ function handleYesClick() {
 }
 
 function handleNoClick() {
-  if (play) {
+  if (noCount < MAX_IMAGES) {
     noCount++;
 
     // Change the question text
-    if (noCount < messages.length) {
-      titleElement.innerHTML = messages[noCount];
-    }
+    titleElement.textContent = messages[Math.min(noCount, messages.length - 1)];
 
-     function changeImage(image) {
-    catsImg.src = `img/cats-${image}.jpg`;
-    }
+    // Update the cat image
+    changeImage(noCount);
 
-    // At the last "No" click, turn both into "Yes"
-    if (noCount >= MAX_IMAGES) {
-      play = false;
-      noButton.innerHTML = "Yes";
-      noButton.classList.add("btn--yes");
-      noButton.removeEventListener("click", handleNoClick);
-      noButton.addEventListener("click", handleYesClick);
-     }
-     }
-      }
-     function resizeYesButton() {
-     const computedStyle = window.getComputedStyle(yesButton);
-     const fontSize = parseFloat(computedStyle.getPropertyValue("font-size"));
-     const newFontSize = fontSize * 1.10;
+    // Resize the buttons
+    resizeButtons();
+  }
 
-  yesButton.style.fontSize = `${newFontSize}px`;
+  // At the last "No" click, turn both into "Yes"
+  if (noCount === MAX_IMAGES) {
+    noButton.textContent = "Yes";
+    noButton.classList.add("btn--yes");
+    noButton.removeEventListener("click", handleNoClick);
+    noButton.addEventListener("click", handleYesClick);
+  }
 }
-  // Decrease No button size
+
+function resizeButtons() {
+  // Increase Yes button size
+  const yesFontSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+  yesButton.style.fontSize = `${yesFontSize * 1.4}px`;
+
+  // Decrease No button size (minimum 12px so it doesn’t disappear)
   const noFontSize = parseFloat(window.getComputedStyle(noButton).fontSize);
-  noButton.style.fontSize = `${Math.max(noFontSize * 0.7, 10)}px`; // Prevent No button from disappearing completely
+  noButton.style.fontSize = `${Math.max(noFontSize * 0.7, 12)}px`;
+}
+
+function changeImage(imageIndex) {
+  // Log the image path being used
+  const imagePath = `img/cats-${imageIndex}.jpg`;
+  console.log(`Changing image to: ${imagePath}`);
+
+  // Update the image source
+  catsImg.src = imagePath;
+
+  // Handle image load and error events for better debugging
+  catsImg.onload = () => {
+    console.log(`Image loaded: ${imagePath}`);
+  };
+  catsImg.onerror = () => {
+    console.error(`Failed to load image: ${imagePath}`);
+  };
 }
