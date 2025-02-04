@@ -38,6 +38,11 @@ noButton.addEventListener("click", function () {
   }
 });
 
+function resizeYesButton() {
+  const computedStyle = window.getComputedStyle(yesButton);
+  const fontSize = parseFloat(computedStyle.getPropertyValue("font-size"));
+  const newFontSize = fontSize * 1.6;
+
 function handleYesClick() {
   titleElement.innerHTML = "Yayyy! I knew you would say yes!! :3";
   buttonsContainer.classList.add("hidden");
@@ -52,7 +57,13 @@ function changeImage(imageIndex) {
     catsImg.src = `path_to_cats_image_${imageIndex}.jpg`; // Update with actual images for no clicks
   }
 }
+function changeImage(image) {
+  catImg.src = `img/cat-${image}.jpg`;
+}
 
+function updateNoButtonText() {
+  noButton.innerHTML = generateMessage(noCount);
+}
 function updateNoButtonText() {
   // Dynamically update the text of the No button based on how many times it's clicked
   if (noCount < MAX_IMAGES) {
