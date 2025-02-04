@@ -4,24 +4,12 @@ const titleElement = document.querySelector(".title");
 const buttonsContainer = document.querySelector(".buttons");
 const yesButton = document.querySelector(".btn--yes");
 const noButton = document.querySelector(".btn--no");
-const catsImg = document.querySelector(".cats-img");  // This is the correct reference
+const catImg = document.querySelector(".cat-img");
 
 const MAX_IMAGES = 5;
 
 let play = true;
 let noCount = 0;
-
-const messages = [
-  "Really?",
-  "Pookie Please",
-  "I can't take this. 🙁",
-  "You're breaking my heart",
-  "Can't you change your mind?",
-  "How can you be sure if we don't try?",
-  "ako nalang sana",
-  "It hurts",
-  "Miss ganda, sige na",
-];
 
 yesButton.addEventListener("click", handleYesClick);
 
@@ -38,32 +26,38 @@ noButton.addEventListener("click", function () {
   }
 });
 
+function handleYesClick() {
+  titleElement.innerHTML = "Yayyy!! :3";
+  buttonsContainer.classList.add("hidden");
+  changeImage("yes");
+}
+
 function resizeYesButton() {
   const computedStyle = window.getComputedStyle(yesButton);
   const fontSize = parseFloat(computedStyle.getPropertyValue("font-size"));
-  const newFontSize = fontSize * 1.10;
+  const newFontSize = fontSize * 1.6;
 
-function handleYesClick() {
-  titleElement.innerHTML = "Yayyy! I knew you would say yes!! :3";
-  buttonsContainer.classList.add("hidden");
-  changeImage("yes"); // Call changeImage with "yes" to update the image
+  yesButton.style.fontSize = `${newFontSize}px`;
 }
 
-function changeImage(imageIndex) {
-  // Update the image based on index or "yes"
-  if (imageIndex === "yes") {
-    catsImg.src = "path_to_yes_image.jpg"; // Update with actual image for yes response
-  } else {
-    catsImg.src = `path_to_cats_image_${imageIndex}.jpg`; // Update with actual images for no clicks
-  }
+function generateMessage(noCount) {
+  const messages = [
+    "No",
+    "Are you sure?",
+    "Pookie please",
+    "Don't do this to me :(",
+    "You're breaking my heart",
+    "I'm gonna cry...",
+  ];
+
+  const messageIndex = Math.min(noCount, messages.length - 1);
+  return messages[messageIndex];
 }
+
 function changeImage(image) {
-  catsImg.src = `img/cats-${image}.jpg`;
+  catImg.src = `img/cat-${image}.jpg`;
 }
 
 function updateNoButtonText() {
   noButton.innerHTML = generateMessage(noCount);
 }
-function updateNoButtonText() {
-  // Dynamically update the text of the No button based on how many times it's clicked
-  if (noCount < MAX_IMAGES) {
