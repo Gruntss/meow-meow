@@ -6,7 +6,9 @@ const yesButton = document.querySelector(".btn--yes");
 const noButton = document.querySelector(".btn--no");
 const catImg = document.querySelector(".cat-img");  // This is the correct reference
 
-const MAX_IMAGES = 9; // Total images (cats-0.jpg to cats-8.jpg)
+const MAX_IMAGES = 5;
+
+let play = true;
 let noCount = 0;
 
 const messages = [
@@ -22,22 +24,26 @@ const messages = [
 ];
 
 yesButton.addEventListener("click", handleYesClick);
-noButton.addEventListener("click", handleNoClick);
+
+noButton.addEventListener("click", function () {
+  if (play) {
+    noCount++;
+    const imageIndex = Math.min(noCount, MAX_IMAGES);
+    changeImage(imageIndex);
+    resizeYesButton();
+    updateNoButtonText();
+    if (noCount === MAX_IMAGES) {
+      play = false;
+    }
+  }
+});
 
 function handleYesClick() {
-  titleElement.textContent = "Yayyy!! :3";
+  titleElement.innerHTML = "Yayyy! I knew you would say yes!! :3";
   buttonsContainer.classList.add("hidden");
-  changeImage("yes"); // Show the final 'yes' image
-
-  // Show a cute response message
-  const responseMessage = document.createElement("p");
-  responseMessage.textContent = "❤️ Yay! I knew you would say yes! ❤️";
-  responseMessage.style.color = "red";
-  responseMessage.style.fontSize = "20px";
-  responseMessage.style.textAlign = "center";
-
-  document.body.appendChild(responseMessage);
+  changeImage("yes");
 }
+
 
 function handleNoClick() {
   if (noCount < MAX_IMAGES) {
@@ -70,21 +76,4 @@ function resizeButtons() {
   // Decrease No button size (minimum 12px so it doesn’t disappear)
   const noFontSize = parseFloat(window.getComputedStyle(noButton).fontSize);
   noButton.style.fontSize = `${Math.max(noFontSize * 0.7, 12)}px`;
-}
-
-function changeImage(imageIndex) {
-  // Log the image path being used
-  const imagePath = `img/cats-${imageIndex}.jpg`;
-  console.log(`Changing image to: ${imagePath}`);
-
-  // Update the image source using the correct reference 'catImg'
-  catImg.src = imagePath;
-
-  // Handle image load and error events for better debugging
-  catImg.onload = () => {
-    console.log(`Image loaded: ${imagePath}`);
-  };
-  catImg.onerror = () => {
-    console.error(`Failed to load image: ${imagePath}`);
-  };
 }
