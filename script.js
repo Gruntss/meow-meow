@@ -6,7 +6,7 @@ const yesButton = document.querySelector(".btn--yes");
 const noButton = document.querySelector(".btn--no");
 const catsImg = document.querySelector(".cats-img");  // This is the correct reference
 
-const MAX_IMAGES = 9;
+const MAX_IMAGES = 5;
 
 let play = true;
 let noCount = 0;
@@ -41,7 +41,7 @@ noButton.addEventListener("click", function () {
 function resizeYesButton() {
   const computedStyle = window.getComputedStyle(yesButton);
   const fontSize = parseFloat(computedStyle.getPropertyValue("font-size"));
-  const newFontSize = fontSize * 1.6;
+  const newFontSize = fontSize * 1.10;
 
 function handleYesClick() {
   titleElement.innerHTML = "Yayyy! I knew you would say yes!! :3";
@@ -58,7 +58,7 @@ function changeImage(imageIndex) {
   }
 }
 function changeImage(image) {
-  catImg.src = `img/cat-${image}.jpg`;
+  catsImg.src = `img/cats-${image}.jpg`;
 }
 
 function updateNoButtonText() {
