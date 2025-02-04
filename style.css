@@ -68,3 +68,18 @@ body {
 .hidden {
   display: none;
 }
+/* Ensure the buttons are visible and on top of other elements */
+.buttons {
+  position: relative;
+  z-index: 10; /* Make sure the buttons are on top of other elements */
+}
+
+/* Ensure the buttons are not blocked by any other elements */
+.btn {
+  pointer-events: auto; /* Ensure the buttons are clickable */
+}
+
+/* Style the body to ensure there's no issue with background overlapping */
+body {
+  overflow: hidden; /* Prevent any scrolling issues */
+}
