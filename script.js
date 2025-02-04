@@ -4,7 +4,7 @@ const titleElement = document.querySelector(".title");
 const buttonsContainer = document.querySelector(".buttons");
 const yesButton = document.querySelector(".btn--yes");
 const noButton = document.querySelector(".btn--no");
-const catImg = document.querySelector(".cat-img");
+const catImg = document.querySelector(".cat-img");  // This is the correct reference
 
 const MAX_IMAGES = 9; // Total images (cats-0.jpg to cats-8.jpg)
 let noCount = 0;
@@ -77,14 +77,14 @@ function changeImage(imageIndex) {
   const imagePath = `img/cats-${imageIndex}.jpg`;
   console.log(`Changing image to: ${imagePath}`);
 
-  // Update the image source
-  catsImg.src = imagePath;
+  // Update the image source using the correct reference 'catImg'
+  catImg.src = imagePath;
 
   // Handle image load and error events for better debugging
-  catsImg.onload = () => {
+  catImg.onload = () => {
     console.log(`Image loaded: ${imagePath}`);
   };
-  catsImg.onerror = () => {
+  catImg.onerror = () => {
     console.error(`Failed to load image: ${imagePath}`);
   };
 }
