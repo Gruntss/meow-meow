@@ -17,7 +17,7 @@ const messages = [
   "I can't take this. 🙁",
   "You're breaking my heart",
   "Can't you change your mind?",
-  "How can we be sure if we don't try?",
+  "How can you be sure if we don't try?",
   "ako nalang sana",
   "It hurts",
   "Miss ganda, sige na",
